@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple Agentic AI</title>
+</head>
+<body>
+  <h1>Simple Agentic AI</h1>
+  <input type="text" id="goal" placeholder="Enter your goal" />
+  <button onclick="sendGoal()">Run Agent</button>
+  <pre id="result"></pre>
+
+  <script>
+    async function sendGoal() {
+      const goal = document.getElementById('goal').value;
+      const res = await fetch('/agent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ goal })
+      });
+      const data = await res.json();
+      document.getElementById('result').innerText = data.result || data.error;
+    }
+  </script>
+</body>
+</html>
